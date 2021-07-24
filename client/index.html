@@ -1,0 +1,237 @@
+<html>
+    <head>
+        <title>Duels de citations</title>
+        <link rel="stylesheet" href="bulma.min.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+    <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div id="nav" class="navbar-end">
+                <div class="navbar-item">
+                    <span id="api-memory" style="display:none;"></span>
+                    <div class="buttons">
+                        <a id="btn-open-login-modal" class="button is-success">
+                        Se connecter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <h1 class="title">Duels de citations</h1>
+                <p class="subtitle">Quelle est votre citation favorite ?</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="tabs is-centered">
+                <ul>
+                    <li class="is-active" id="tab-duel"><a>Voter</a></li>
+                    <li id="tab-tout"><a>Toutes les citations</a></li>
+                    <li id="tab-add" style="display:none;"><a>Ajouter une citation</a></li>
+                </ul>
+            </div>
+
+            
+            <div class="columns" id="div-duel">
+                <!-- CITATION GAUCHE-->
+                <div class="column">
+                    <div class="card">
+                        <div class="columns card-content" style="min-height: 90%;">
+                            <div class="column is-one-third">
+                                <div class="card-image">
+                                    <figure class="image" id="image-left" >
+
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="column is-8">
+                                <p class="title" id="title-left">
+
+                                </p>
+                                <p class="subtitle" id="subtitle-left">
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="columns is-centered">
+                                <p id="btn-duel-left" class="button is-danger" onclick="duel(this.value, this.id)">Voter pour la citation de gauche !</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOUTON SHUFFLE -->
+                <div class="columns column is-1 is-vcentered is-centered">
+                    <button class="button is-large" onclick="initClientCitations()" style="background-color:rgba(255, 255, 255, 0); border-radius: 1rem; border-width: 0;">
+                        <span class="icon">
+                            <i class="material-icons" style="font-size: 4rem; color: rgba(0,209,178, 1);">shuffle</i>
+                        </span>
+                    </button>
+                </div>
+
+                <!-- CITATION DROITE-->
+                <div class="column">
+                    <div class="card">
+                        <div class="columns card-content" style="min-height: 90%;">
+                            <div class="column is-8">
+                                <p class="title" id="title-right">
+                                    
+                                </p>
+                                <p class="subtitle" id="subtitle-right">
+
+                                </p>
+                            </div>
+                            <div class="column is-one-third">
+                                <div class="card-image">
+                                    <figure class="image" id=image-right>
+        
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="columns is-centered" >
+                                <p id="btn-duel-right" class="button is-info" onclick="duel(this.value,this.id)">Voter pour la citation de droite !</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLEAU TOUTES LES CITATIONS -->
+            <div id="div-tout">
+                <table class="table is-striped is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>Classement</th>
+                            <th>Personnage</th>
+                            <th>Citation</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id = "classement-citations">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- AJOUT CITATION -->
+            <div class="columns is-centered" id="div-add">
+                <div class="column is-8">
+                    <div class="box">
+                        <div class="field">
+                            <label class="label">Citation</label>
+                            <div class="control">
+                                <textarea id="form-quote" class="textarea" placeholder="“I’m a vegetarian except for fish, and the occasional steak. I love steak!”"></textarea>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Personnage</label>
+                            <div class="control">
+                                <input id="form-character" class="input" type="text" placeholder="Penny">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Origine</label>
+                            <div class="control">
+                                <input id="form-origin" class="input" type="text" placeholder="The Big Bang Theory">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Lien de l'image</label>
+                            <div class="control">
+                                <input id="form-image" class="input" type="text" placeholder="https://www.example.com/">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Orientation du personnage</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select id="form-characterDirection">
+                                        <option value="none" selected>Aucune</option>
+                                        <option value="Left">Gauche</option>
+                                        <option value="Right">Droite</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-success" style="margin-left: 90%;" onclick="addQuote()">Ajouter</button>
+                            </div>
+                        </div>
+                        <div class="columns is-full is-centered">
+                            <div id="error-notif" class="notification" style="display: none; width: 100%; margin: 20px;">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="mdl-login" class="modal is-active">
+            <div class="modal-background" onclick="closeModal('mdl-login')"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Se connecter</p>
+                    <button id="btn-close-login-modal1" class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <p id="elt-affichage-login">
+                        <label class="label">Clé d&#146;API
+                            <input id="api-input" class="input" type="password" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                        </label>
+                        <span id="api-error" class="help is-danger"></span>
+                        <button class="button is-success" onclick="lanceWhoamiEtInsereLogin()">Valider</button>
+                    </p>
+                </section>
+                <footer class="modal-card-foot" style="justify-content: flex-end">
+                    <button id="btn-close-login-modal2" class="button">Fermer</button>
+                </footer>
+            </div>
+        </div>
+
+        <div id="mdl-infos" class="modal">
+            <div class="modal-background" onclick="closeModal('mdl-infos')"></div>
+            <div class="modal-content" style="min-width:50%">
+                <div class="box">
+                    <article class="media">
+                        <figure class="media-left">
+                            <p class="image">
+                                <img id="mdl-infos-img" style="height: 300px; width: auto;">
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p id="mdl-infos-quote">Citation : </p>
+                                <p id="mdl-infos-character">Personnage : </p>
+                                <p id="mdl-infos-origin">Origine : </p>
+                                <p id="mdl-infos-characterDirection">Direction du personnage : </p>
+                                <table id="table-scores" class="table">
+                                    <tr>
+                                        <th>Citation</th>
+                                        <th>Victoire</th>
+                                        <th>Défaite</th>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close" onclick="closeModal('mdl-infos')"></button>
+        </div>
+
+        <script src="client.js"></script>
+    </body>
+</html>
