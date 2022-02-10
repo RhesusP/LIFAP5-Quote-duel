@@ -1,6 +1,6 @@
 # Projet S4 en LIFAP5
 
-Groupe 20 : BERNOT Camille (11908800) et LECLUSE Léa (11910485)
+BERNOT Camille (11908800)
 
 ## Liens utiles
 
@@ -36,10 +36,3 @@ Groupe 20 : BERNOT Camille (11908800) et LECLUSE Léa (11910485)
 ## Fonctionnalités supplémentaires  
 
 :ok_hand: Repiocher deux citations 
-
-
-
-
-## Note 
-
-14/20  
