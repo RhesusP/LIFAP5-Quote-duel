@@ -1,7 +1,7 @@
 <div align="center">
 
 # Quote duel
-#### Programmation Fonctionnelle pour le Web
+#### Programmation Fonctionnelle pour le Web (2021)
 
 </div>
 
